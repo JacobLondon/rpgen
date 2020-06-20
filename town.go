@@ -45,15 +45,6 @@ func Town_new() *Town {
 	self := Town{}
 
 	self.pop = rand.Intn(town_pop_max) + town_pop_min
-	for i, size := range town_sizes {
-		if self.pop < size {
-			self.size = town_size_names[i]
-			break
-		}
-	}
-
-	self.name = pick_one(town_names)
-	self.neara = pick_one(town_neara)
 
 	fit := math.Log10(float64(self.pop))
 	fit *= fit
@@ -68,16 +59,27 @@ func Town_new() *Town {
 		}(i)
 	}
 
+	// get population size to a town sized name -> village, town, city, ...
+	for i, size := range town_sizes {
+		if self.pop < size {
+			self.size = town_size_names[i]
+			break
+		}
+	}
+
+	self.name = pick_one(town_names)
+	self.neara = pick_one(town_neara)
+
 	wg.Wait()
 	return &self
 }
 
 func (self *Town) String() string {
-	builder := fmt.Sprintf("%s of %s, population %d | %d places, %s nearby\n",
+	builder := fmt.Sprintf("%s of %s, population %d, %d establishments, %s nearby\n",
 		self.size, self.name, self.pop, len(self.places), self.neara)
 	
-	for _, p := range self.places {
-		builder += p.String()
+	for _, place := range self.places {
+		builder += place.String()
 	}
 
 	return builder
@@ -88,12 +90,17 @@ func (self *Town) Write() {
 }
 
 func (self *Town) Write_path(path string) {
+	// remove file, ignore error
+	err := os.Remove(path)
+
+	// re-create and write to file
 	file, err := os.OpenFile(path, os.O_WRONLY | os.O_CREATE, 0666)
 	defer file.Close()
 	if err != nil {
 		panic(err)
 	}
 
+	// put string
 	_, err = file.WriteString(self.String())
 	if err != nil {
 		panic(err)

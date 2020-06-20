@@ -13,7 +13,7 @@ var place_kinds = []string {
 	"Leatherworks", "Book Store", "Magick Shoppe", "Jewelery", "Candlestick Maker", "Bakery", "Jail",
 	"Oddities", "Cobbler", "Pier", "Cartographers Guildhall", "Softies", "Fortuitous Froths", "Trinkets",
 	"Rock Candy", "Fur-ever Homes", "Mountaineers Bandoleer", "Bloodletting Shop", "Morgue", "Taxidermists",
-	"Tinkerer's Construct", "Hatter", "Theater", "Restaurant", "Curiosities", "Stone Carving", "Statuary",
+	"Tinkers' Construct", "Hatter", "Theater", "Restaurant", "Curiosities", "Stone Carvings", "Statuary",
 	"Menders", "Whispers and Secrets", "Library", "Spirits", "Liquor", "Hunting Goods", "Habidashery",
 	"Mercenary Guild", "Weapons Shop", "Architect", "City Hall", "Engineers", "Textiles", "Armory",
 }
@@ -33,6 +33,9 @@ var place_feels = []string {
 
 var place_intrigue = []string {
 	"Cellar", "Outhouse", "Basement", "Pathway", "Altar", "Chamber", "Vault behind a painting",
+	"Portal behind a fake wall", "Trapdoor in the floor", "Tripwire across back doorway",
+	"Pressure plate by the side", "Illusory fireplace", "Hidden blades", "Living suit of armor",
+	"Door swings open when knocked upon", "Room of unliving statues warriors",
 }
 
 var place_pop_min = 1
@@ -59,9 +62,8 @@ func (self *Place) String() string {
 	}
 	builder += "\n"
 
-
-	for _, p := range self.people {
-		builder = fmt.Sprintf("%s\t%s\n", builder, p.String())
+	for _, person := range self.people {
+		builder = fmt.Sprintf("%s\t%s\n", builder, person.String())
 	}
 
 	return builder
@@ -74,7 +76,18 @@ func Place_new() *Place {
 func Place_new_kind(kind string) *Place {
 	self := Place{}
 
-	self.size       = rand.Intn(place_pop_max) + place_pop_min
+	self.size = rand.Intn(place_pop_max) + place_pop_min
+	self.people = make([]*Person, self.size)
+
+	var wg sync.WaitGroup
+	wg.Add(self.size)
+	for i := 0; i < self.size; i++ {
+		go func(idx int) {
+			self.people[idx] = Person_new()
+			wg.Done()
+		}(i)
+	}
+
 	self.kind       = kind
 	self.decoration = pick_one(place_decorations)
 	self.feel       = pick_one(place_feels)
@@ -83,17 +96,6 @@ func Place_new_kind(kind string) *Place {
 		self.intrigue = ""
 	} else {
 		self.intrigue = pick_one(place_intrigue)
-	}
-
-	self.people = make([]*Person, self.size)
-	var wg sync.WaitGroup
-
-	wg.Add(self.size)
-	for i := 0; i < self.size; i++ {
-		go func(idx int) {
-			self.people[idx] = Person_new()
-			wg.Done()
-		}(i)
 	}
 
 	wg.Wait()

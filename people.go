@@ -63,7 +63,7 @@ var race_defs = map[string]Race {
 			"Black", "Brown", "Blonde", "Red", "White", "Gray", "Bald",
 		},
 		eye_colors: []string {
-			"Brown", "Blue", "Green", "Hazel", "Dark",
+			"Brown", "Blue", "Green", "Hazel", "Dark", "Gray",
 		},
 		height_min: 5.0,
 		height_max: 6.5,
@@ -93,13 +93,13 @@ var race_defs = map[string]Race {
 			"Nightbreeze", "Moonbrook", "Goldpetal",
 		},
 		skin_colors: []string {
-			"Light", "Dark",
+			"Light", "Dark", "Hazel", "Tan",
 		},
 		hair_colors: []string {
-			"Black", "Silver", "Brown", "Gold",
+			"Black", "Silver", "Brown", "Gold", "Blonde", "White", "Gray", "Bald",
 		},
 		eye_colors: []string {
-			"Brown", "Light", "Green", "Blue",
+			"Brown", "Light", "Green", "Blue", "Yellow", "Hazel", "Gray", "Gold", "Silver",
 		},
 		height_min: 5.3,
 		height_max: 6.2,
@@ -121,13 +121,13 @@ var race_defs = map[string]Race {
 			"",
 		},
 		skin_colors: []string {
-			"Green", "Gray", "Dark",
+			"Green", "Gray", "Dark", "Purple", "Light Blue", "Pale",
 		},
 		hair_colors: []string {
-			"Black", "Bald", "Brown",
+			"Black", "Bald", "Brown", "Maroon", "Bald",
 		},
 		eye_colors: []string {
-			"Black", "Dark", "Brown", "Green",
+			"Black", "Dark", "Brown", "Green", "Yellow", "Orange", "Purple",
 		},
 		height_min: 5.8,
 		height_max: 7.5,
@@ -158,10 +158,10 @@ var race_defs = map[string]Race {
 			"Light", "Dark", "Tan",
 		},
 		hair_colors: []string{
-			"Red", "Brown", "Black",
+			"Red", "Brown", "Black", "Bald",
 		},
 		eye_colors: []string{
-			"Golden", "Hazel", "Brown",
+			"Golden", "Hazel", "Brown", "Green", "Gray",
 		},
 		height_min: 3.0,
 		height_max: 5.0,
@@ -189,10 +189,10 @@ var race_defs = map[string]Race {
 			"Walnut", "Light", "Dark", "Tan",
 		},
 		hair_colors: []string{
-			"Blonde", "Brown", "Black",
+			"Blonde", "Brown", "Black", "Bald",
 		},
 		eye_colors: []string{
-			"Turquoise", "Blue", "Green", "Hazel", "Brown",
+			"Turquoise", "Blue", "Green", "Hazel", "Brown", "Gray", "Gold", "Silver",
 		},
 		height_min: 2.0,
 		height_max: 3.5,
@@ -220,10 +220,10 @@ var race_defs = map[string]Race {
 			"Tan", "Light", "Pale",
 		},
 		hair_colors: []string{
-			"Sandy", "Brown", "Blonde",
+			"Sandy", "Brown", "Blonde", "Black", "Bald",
 		},
 		eye_colors: []string{
-			"Brown", "Blue", "Green",
+			"Brown", "Blue", "Green", "Hazel", "Gray",
 		},
 		height_min: 2.0,
 		height_max: 3.5,
@@ -289,20 +289,49 @@ var person_goals = []string{
 	"Survive",
 	"Seek a position of power",
 	"Explore ruins",
+	"Become a cleric",
+	"Become a priest",
+	"Become an explorer",
+	"Become a historian",
+	"Become a luthier",
+	"Become a musician",
+	"Become a warrior",
+	"Become a miner",
+	"To fall in love",
+	"Find their mother",
+	"Find their father",
+	"Find their son",
+	"Find their daughter",
+	"Take their revenge",
+	"To help their guild",
+	"Rise the ranks of their guild",
+	"Rise the ranks of the military",
+	"Discover a new, rare animal",
+	"Find and protect a hidden natural wonderland",
+	"Write a comprehensive bestiary of the continent",
+	"Learn to fight",
+	"Open a great zoo",
+	"To create a masterpiece painting",
 }
 
-var person_clothings_male = []string{
-	"Fabric Shirt", "Leather Shirt", "Sleaveless Shirt", "Worn Robe", "Fancy Robe", "Silk Robe",
-	"Smock", "Tunic", "Caped Robe", "Chestplate", "Trenchcoat", "Studded Leather Shirt", "Intricate Robes",
-	"Religious Armor", "Religious Robes",
+var person_clothing_adjectives = []string {
+	"Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Indigo", "Violet",
+	"Emerald", "Jade", "Beige", "Black", "Gray", "Maroon", "Colorful",
+	"Fancy", "Worn", "Sleaveless", "Turquoise", "Cyan", "Sapphire", "Caped",
+	"Silk", "Intricate", "Hooded",
 }
 
-var person_clothings_female = []string{
-	"Dress", "Colorful Dress", "Worn Dress", "Robe", "Magical Robe", "Caped Robe", "Sleaveless Shirt",
-	"Smock", "Blouse",
+var person_clothings_male = []string {
+	"Shirt", "Robe", "Smock", "Tunic", "Chestplate", "Trenchcoat", "Religious Armor", "Religious Robes",
+	"Artisan's Clothing", "Cleric's vestments", "Cold weather outfit",
+	"Cloak", "Cape",
 }
 
-var person_distinctions = []string{
+var person_clothings_female = []string {
+	"Dress", "Laced Dress", "Blouse",
+}
+
+var person_distinctions = []string {
 	"Grim Smile", "Calm Demeanor", "Firey Eyes", "Lined Forehead", "Smile Marks",
 	"Scar across eye", "Missing an eye", "Muscley", "Missing a tooth", "Long hair",
 	"Lazy Eye", "Scar across nose", "Missing piece of ear", "Walk with limp",
@@ -315,10 +344,11 @@ var person_distinctions = []string{
 	"Carries greatsword", "Carries shortsword", "Carries longbow", "Carries shortbow",
 	"Carries crossbow", "Carries hammer", "Carries axe", "Carries a quiver", "Walks with a cane",
 	"Sharp chin", "Oval face", "Uses wheelchair", "Carrier hiking gear", "Carries fishing gear",
-	"Has arm tattoo", "Has neck tattoo", "Has chest tattoo",
+	"Has arm tattoo", "Has neck tattoo", "Has chest tattoo", "Jade Necklace", "Long Necklace",
+	"Necklace religious symbol", "Necklace with latch", "Earrings", "Hooked Earring",
 }
 
-var person_feels = []string{
+var person_feels = []string {
 	"Angry", "Stubborn", "Quiet", "Crotchety", "Calm", "Focused", "Intelligent", "Dumb",
 	"Asshole", "Fake", "Truthful", "Helpful", "Kind", "Thankful", "Encouraging", "Naive",
 	"Purposeful", "Meaningless", "Haggard", "Non-conformist", "Conformist", "Boring",
@@ -352,7 +382,7 @@ type Person struct {
 }
 
 func (self *Person) String() string {
-	return fmt.Sprintf("%s, %s %s %d, %.2f ft, %d lbs, %d gold | %s skin, %s hair, %s eyes, Wearing a %s, %s | %s, wants to %s",
+	return fmt.Sprintf("%s, %s %s %d, %.2f ft, %d lbs, %d gold | %s skin, %s hair, %s eyes, Wearing %s, %s | %s, wants to %s",
 		self.name, self.gender, self.race, self.age, self.height, self.weight, self.gold,
 		self.skin_color, self.hair_color, self.eye_color, self.clothing, self.distinction, self.feel, self.goal)
 }
@@ -391,7 +421,7 @@ func Person_new_race(race_name string) *Person {
 		if surname != "" {
 			self.name += fmt.Sprintf(" %s", surname)
 		}
-		self.clothing = pick_one(person_clothings_male)
+		self.clothing = pick_one(person_clothing_adjectives) + " " + pick_one(person_clothings_male)
 		self.gender = "Male"
 	// female
 	} else {
@@ -402,9 +432,9 @@ func Person_new_race(race_name string) *Person {
 		}
 
 		if rand.Int() % 2 == 0 {
-			self.clothing = pick_one(person_clothings_male)
+			self.clothing = pick_one(person_clothing_adjectives) + " " + pick_one(person_clothings_male)
 		} else {
-			self.clothing = pick_one(person_clothings_female)
+			self.clothing = pick_one(person_clothing_adjectives) + " " + pick_one(person_clothings_female)
 		}
 		self.gender = "Female"
 	}
