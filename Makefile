@@ -1,15 +1,18 @@
 GO=go
 
-TARGET = city
+TARGET=rpgen
 
 FILES = \
-	city.go \
+	people.go \
+	place.go \
+	town.go \
+	util.go \
 	main.go
 
-.PHONY: clean
+.PHONY: $(TARGET) clean
 
 $(TARGET):
-	$(GO) build $(FILES)
+	$(GO) build -o $@ $(FILES)
 
 clean:
 	rm -rf $(TARGET)

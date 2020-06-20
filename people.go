@@ -2,10 +2,7 @@ package main
 
 import (
 	"fmt"
-    "math"
 	"math/rand"
-	"sync"
-	"time"
 )
 
 type Race struct {
@@ -23,7 +20,11 @@ type Race struct {
 	age_max      int
 }
 
-var race_defs = map[string]Race{
+var race_names = []string{
+	"Human", "Elf", "Orc", "Dwarf", "Gnome", "Halfling", "Tiefling",
+}
+
+var race_defs = map[string]Race {
 	"Human": {
 		male_names: []string{
 			"Aseir", "Bardeid", "Haseid", "Khemed", "Mehmen", "Sudeiman", "Zasheir",
@@ -35,7 +36,7 @@ var race_defs = map[string]Race{
 			"An", "Chen", "Chi", "Fai", "Jiang", "Jun", "Lian", "Long", "Meng", "On", "Shan", "Shui", "Wen",
 			"Anton", "Diero", "Marcon", "Pieron", "Rimardo", "Romero", "Salazar", "Umbero",
 		},
-		female_names: []string{
+		female_names: []string {
 			"Atala", "Ceidil", "Hama", "Jasmal", "Meilil", "Seipora", "Yasheira", "Zasheida",
 			"Arveene", "Esvele", "Jhessail", "Kerri", "Lureene", "Miri", "Rowan", "Shandri", "Tessele",
 			"Alethra", "Kara", "Katernin", "Mara", "Natali", "Olma", "Tana", "Zora",
@@ -45,7 +46,7 @@ var race_defs = map[string]Race{
 			"Bai", "Chao", "Jia", "Lei", "Mei", "Qiao", "Shui", "Tai",
 			"Balama", "Dona", "Faila", "Jalana", "Luisa", "Marta", "Quara", "Selise", "Vonda",
 		},
-		surnames: []string{
+		surnames: []string {
 			"Basha", "Dumein", "Jassan", "Khalid", "Mostana", "Pashar", "Rein",
 			"Amblecrown", "Buckman", "Dundragon", "Evenwood", "Greycastle", "Tallstag",
 			"Bersk", "Chernin", "Dotsk", "Kulenov", "Marsk", "Nemetsk", "Shemov", "Starag",
@@ -55,84 +56,84 @@ var race_defs = map[string]Race{
 			"Chien", "Huang", "Kao", "Kung", "Lao", "Ling", "Mei", "Pin", "Shin", "Sum", "Tan", "Wan",
 			"Agosto", "Astorio", "Calabra", "Domine", "Falone", "Marivaldi", "Pisacar", "Ramondo",
 		},
-		skin_colors: []string{
+		skin_colors: []string {
 			"Light", "Dark", "Tan",
 		},
-		hair_colors: []string{
+		hair_colors: []string {
 			"Black", "Brown", "Blonde", "Red", "White", "Gray", "Bald",
 		},
-		eye_colors: []string{
+		eye_colors: []string {
 			"Brown", "Blue", "Green", "Hazel", "Dark",
 		},
-		height_min: 4.0,
-		height_max: 7.0,
-		weight_min: 90,
-		weight_max: 300,
-		age_min: 19,
+		height_min: 5.0,
+		height_max: 6.5,
+		weight_min: 120,
+		weight_max: 200,
+		age_min: 20,
 		age_max: 70,
 	},
 	"Elf": {
-		male_names: []string{
+		male_names: []string {
 			"Adran", "Aelar", "Aramil", "Arannis", "Aust", "Beiro", "Berrian", "Carric", "Enialis",
 			"Erdan", "Erevan", "Galinndan", "Hadarai", "Heian", "Himo", "Immeral", "Ivellios", "Laucian",
 			"Mindartis", "Paelias", "Peren", "Quarion", "Riardon", "Rolen", "Soveliss", "Thamior",
 			"Tharivol", "Theren", "Varis",
 		},
-		female_names: []string{
+		female_names: []string {
 			"Adrie", "Althaea", "Anastrianna", "Andraste", "Antinua", "Bethrynna", "Birel", "Caelynn",
 			"Drusilia", "Enna", "Felosial", "Ielenia", "Jelenneth", "Keyleth", "Leshanna", "Lia", "Meriele",
 			"Mialee", "Naivara", "Quelenna", "Quillathe", "Sariel", "Shanairra", "Shava", "Silaqui",
 			"Theirastra", "Thia", "Vadania", "Valanthe", "Xanaphia",
 		},
-		surnames: []string{
+		surnames: []string {
 			"Amakiir", "Amastacia", "Galanodel", "Holimion",
-			"Ilphelkiir", "Liadon", "Meliamne", "NaNightbreeze)",
+			"Ilphelkiir", "Liadon", "Meliamne", "NaNightbreeze",
 			"Siannodel", "Xiloscient",
 			"Gemflower", "Starflower", "Moonwhisper", "Diamonddew", "Gemblossom", "Silverfrond", "Oakenheel",
 			"Nightbreeze", "Moonbrook", "Goldpetal",
 		},
-		skin_colors: []string{
+		skin_colors: []string {
 			"Light", "Dark",
 		},
-		hair_colors: []string{
+		hair_colors: []string {
 			"Black", "Silver", "Brown", "Gold",
 		},
-		eye_colors: []string{
+		eye_colors: []string {
 			"Brown", "Light", "Green", "Blue",
 		},
-		height_min: 4.5,
+		height_min: 5.3,
 		height_max: 6.2,
-		weight_min: 70,
-		weight_max: 200,
-		age_min: 19,
+		weight_min: 110,
+		weight_max: 180,
+		age_min: 20,
 		age_max: 700,
 	},
 	"Orc": {
-		male_names: []string{
+		male_names: []string {
 			"Dench", "Feng", "Gell", "Henk", "Holg", "Imsh", "Keth", "Krusk",
 			"Mhurren", "Ront", "Shump", "Thokk",
 		},
-		female_names: []string{
+		female_names: []string {
 			"Baggi", "Emen", "Engong", "Kansif", "Myev", "Neega", "Ovak", "Ownka",
 			"Shautha", "Sutha", "Vola", "Volen", "Yevelda",
 		},
-		surnames: []string{
+		surnames: []string {
 			"",
 		},
-		skin_colors: []string{
+		skin_colors: []string {
 			"Green", "Gray", "Dark",
 		},
-		hair_colors: []string{
+		hair_colors: []string {
 			"Black", "Bald", "Brown",
 		},
-		eye_colors: []string{
+		eye_colors: []string {
 			"Black", "Dark", "Brown", "Green",
 		},
 		height_min: 5.8,
-		height_max: 8.0,
+		height_max: 7.5,
 		weight_min: 170,
-		weight_max: 300,
-		age_min: 19,
+		weight_max: 240,
+		age_min: 20,
 		age_max: 70,
 	},
 	"Dwarf": {
@@ -166,7 +167,7 @@ var race_defs = map[string]Race{
 		height_max: 5.0,
 		weight_min: 50,
 		weight_max: 200,
-		age_min: 19,
+		age_min: 20,
 		age_max: 450,
 	},
 	"Gnome": {
@@ -197,7 +198,7 @@ var race_defs = map[string]Race{
 		height_max: 3.5,
 		weight_min: 30,
 		weight_max: 50,
-		age_min: 19,
+		age_min: 20,
 		age_max: 400,
 	},
 	"Halfling": {
@@ -228,7 +229,7 @@ var race_defs = map[string]Race{
 		height_max: 3.5,
 		weight_min: 30,
 		weight_max: 50,
-		age_min: 19,
+		age_min: 20,
 		age_max: 75,
 	},
 	"Tiefling": {
@@ -261,19 +262,15 @@ var race_defs = map[string]Race{
 		height_min: 5.0,
 		height_max: 6.5,
 		weight_min: 90,
-		weight_max: 240,
-		age_min: 19,
+		weight_max: 200,
+		age_min: 20,
 		age_max: 75,
 	},
 }
 
-var race_names = []string{
-	"Human", "Elf", "Orc", "Dwarf", "Gnome", "Halfling", "Tiefling",
-}
-
 var person_goals = []string{
 	"Explore a different land",
-	"Provide for my family",
+	"Provide for family",
 	"Conduct business all across the country",
 	"Craft something exquisite",
 	"Hike to the top of a great mountain",
@@ -288,7 +285,7 @@ var person_goals = []string{
 	"To rebuild the city",
 	"Help the poor",
 	"Study lore",
-	"Build a temple to my god",
+	"Build a temple to their god",
 	"Survive",
 	"Seek a position of power",
 	"Explore ruins",
@@ -301,9 +298,6 @@ var person_clothings_male = []string{
 }
 
 var person_clothings_female = []string{
-	"Fabric Shirt", "Leather Shirt", "Sleaveless Shirt", "Worn Robe", "Fancy Robe", "Silk Robe",
-	"Smock", "Tunic", "Caped Robe", "Chestplate", "Trenchcoat", "Studded Leather Shirt", "Intricate Robes",
-	"Religious Armor", "Religious Robes",
 	"Dress", "Colorful Dress", "Worn Dress", "Robe", "Magical Robe", "Caped Robe", "Sleaveless Shirt",
 	"Smock", "Blouse",
 }
@@ -334,8 +328,11 @@ var person_feels = []string{
 	"Horrible", "Annoying", "Grumpy", "Depressed", "Immaculate", "Sarcastic", "Jovial",
 	"Lax", "Merry", "Middle-aged", "Morbid", "Ne'er-do-well", "Obese", "Obtuse", "Acute",
 	"Offensive", "Bold", "Promiscuous", "Pervasive", "Pious", "Sharp", "Resourceful",
-	"Rude", "Witty", "Shy", 
+	"Rude", "Witty", "Shy", "Happy", "Cheerful", "Bright", "Wonderful", "Kind", "Thrifty",
+	"Trustworthy", "Brave", "Curteous", "Clean", "Useful", "Present",
 }
+
+var person_gold_max int = 200
 
 type Person struct {
 	name        string
@@ -355,178 +352,62 @@ type Person struct {
 }
 
 func (self *Person) String() string {
-	return fmt.Sprintf("%+v\n", *self)
+	return fmt.Sprintf("%s, %s %s %d, %.2f ft, %d lbs, %d gold | %s skin, %s hair, %s eyes, Wearing a %s, %s | %s, wants to %s",
+		self.name, self.gender, self.race, self.age, self.height, self.weight, self.gold,
+		self.skin_color, self.hair_color, self.eye_color, self.clothing, self.distinction, self.feel, self.goal)
 }
 
-func PersonNew() *Person {
+func Person_new() *Person {
+	return Person_new_race(race_names[rand.Intn(len(race_names))])
+}
+
+func Person_new_race(race_name string) *Person {
 	self := Person{}
 
-	self.race = race_names[rand.Intn(len(race_names))]
-	race := race_defs[self.race]
+	self.race = race_name
+	race := race_defs[race_name]
 
 	age := rand.Int() % (race.age_max - race.age_min) + race.age_min
 	self.age = age
 
-	gender := rand.Int() % 2
-
-	self.skin_color = race.skin_colors[rand.Intn(len(race.skin_colors))]
-	self.hair_color = race.hair_colors[rand.Intn(len(race.hair_colors))]
-	self.eye_color = race.eye_colors[rand.Intn(len(race.eye_colors))]
-	self.distinction = person_distinctions[rand.Intn(len(person_distinctions))]
-	self.feel = person_feels[rand.Intn(len(person_feels))]
+	self.skin_color  = pick_one(race.skin_colors)
+	self.hair_color  = pick_one(race.hair_colors)
+	self.eye_color   = pick_one(race.eye_colors)
+	self.distinction = pick_one(person_distinctions)
+	self.feel        = pick_one(person_feels)
 
 	self.height = rand.Float32() * float32(race.height_max - race.height_min) + race.height_min
 	height_norm := (self.height - race.height_min) / race.height_max
 	self.weight = rand.Int() % (race.weight_max - race.weight_min) + race.weight_min
-    self.weight += int(float32(self.weight) * height_norm)
+	self.weight += int(float32(self.weight) * height_norm)
 
-	self.goal = person_goals[rand.Intn(len(person_goals))]
-	self.gold = rand.Intn(500)
+	self.goal = pick_one(person_goals)
+	self.gold = rand.Intn(person_gold_max)
 
 	// male
-	if gender == 0 {
-		self.name = race.male_names[rand.Intn(len(race.male_names))] + " " + race.surnames[rand.Intn(len(race.surnames))]
-		self.clothing = person_clothings_male[rand.Intn(len(person_clothings_male))]
+	if rand.Int() % 2 == 0 {
+		self.name = pick_one(race.male_names)
+		surname := pick_one(race.surnames)
+		if surname != "" {
+			self.name += fmt.Sprintf(" %s", surname)
+		}
+		self.clothing = pick_one(person_clothings_male)
 		self.gender = "Male"
 	// female
-    } else {
-		self.name = race.female_names[rand.Intn(len(race.female_names))] + " " + race.surnames[rand.Intn(len(race.surnames))]
-		self.clothing = person_clothings_female[rand.Intn(len(person_clothings_female))]
+	} else {
+		self.name = pick_one(race.female_names)
+		surname := pick_one(race.surnames)
+		if surname != "" {
+			self.name += fmt.Sprintf(" %s", surname)
+		}
+
+		if rand.Int() % 2 == 0 {
+			self.clothing = pick_one(person_clothings_male)
+		} else {
+			self.clothing = pick_one(person_clothings_female)
+		}
 		self.gender = "Female"
 	}
 
 	return &self
-}
-
-var place_kinds = []string{
-	"Tavern", "Inn", "General Store", "Fletchery Store", "Butcher Shop", "Bath House", "Open-air Market",
-	"Temple", "Fishing Goods", "Post Office", "Owlry", "Falconer", "Herb Shop", "Arboretum", "Petting Zoo",
-    "Botanical Garden", "Cured Meats Store", "Guildhall", "Stable", "Docks", "Apothecary", "Blacksmith",
-    "Leatherworks", "Book Store", "Magick Shoppe", "Jewelery", "Candlestick Maker", "Bakery", "Jail",
-    "Oddities", "Cobbler", "Pier", "Cartographers Guildhall", "Softies", "Fortuitous Froths", "Trinkets",
-    "Rock Candy", "Fur-ever Homes", "Mountaineers Bandoleer", "Bloodletting Shop", "Morgue", "Taxidermists",
-    "Tinkerer's Construct", "Hatter", "Theater", "Restaurant", "Curiosities", "Stone Carving", "Statuary",
-    "Menders", "Whispers and Secrets", "Library", "Spirits", "Liquor", "Hunting Goods", "Habidashery",
-    "Mercenary Guild", "Weapons Shop", "Architect", "City Hall", "Engineers", "Textiles", "Armory",
-}
-
-var place_decorations = []string{
-	"Hanging Fishing Tools", "Paintings", "Rotted Wood", "Cobwebs", "Hanging Ribbons", "Live Music",
-	"Plants", "Bookshelves", "Rug", "Candles", "Chandelier", "Hat Stand", "Coat Rack", "Lanterns",
-    "Drapes", "Flowers",
-}
-
-var place_feels = []string{
-	"Warm", "Smelly", "Damp", "Cold", "Homey", "Distrusting", "Quiet", "Awkward", "Busy",
-	"Dark", "Well-lit", "Welcoming", "Clean", "Dirty", "Dingy", "Bright", "Cramped", "Spacious",
-    "Eerie", "Fabulous", "Fair", "Fancy", "Natural", "Unnatural", "Empty", "Hot", "Kooky",
-    "Poor", "Wealthy", "Luxurious", "Bare-bones", "Antique", "Rowdy", "Ugly", "Unlit", "Vivid",
-}
-
-var size_min = 1
-var size_max = 10
-
-type Place struct {
-	name       string
-	kind       string    // tavern, inn, store, etc...
-	decoration string
-	feel       string    // warm, cold, smelly, ...
-	people     []*Person // the first person is what the place is named after:
-	                     // [Bob, Gracie] -> Bob's Tavern, Gracie is customer
-	size       int       // number of people determined
-}
-
-func (self *Place) String() string {
-	builder := "{name:" + self.name + " decoration:" + self.decoration + " feel:" + self.feel + " "
-
-	for _, p := range self.people {
-		builder += p.String()
-	}
-	builder += "}\n"
-
-	return builder
-}
-
-func PlaceNew() *Place {
-	self := Place{}
-
-	self.size = rand.Intn(size_max) + size_min
-	self.kind = place_kinds[rand.Intn(len(place_kinds))]
-	self.decoration = place_decorations[rand.Intn(len(place_decorations))]
-	self.feel = place_feels[rand.Intn(len(place_feels))]
-
-	self.people = make([]*Person, self.size)
-	var wg sync.WaitGroup
-
-	wg.Add(self.size)
-	for i := 0; i < self.size; i++ {
-		go func(idx int) {
-			self.people[idx] = PersonNew()
-			wg.Done()
-		}(i)
-	}
-
-	wg.Wait()
-	self.name = self.people[0].name + "'s " + self.kind
-
-	return &self
-}
-
-
-var pop_min = 300
-var pop_max = 12000
-var pop_names = []string{
-	"Yaafmouth", "Yhirora", "Puebury", "Zhuypus", "Freurith", "Xens", "Wrico", "Crale", "Illetin",
-	"Ensmore", "Trocester", "Glefrough", "Goiplens", "Kocland", "Pheatol", "Iclance", "Pling", "Vreley",
-	"Osaburgh", "Ingpus", "Droungan", "Zhefield", "Glushire", "Yohwell", "Zruuyham", "Strane", "Ezodon",
-	"Jico", "Inemond", "Ingdon", "Ikhuiyland", "Chiham", "Juclens", "Xoysea", "Pautgend", "Yhence", "Iheigh",
-	"Izhouis", "Eighport", "Olisdale", "Jewood", "Prievale", "Lunby", "Breefield", "Glanard", "Vouis", "Ceka",
-	"Ogrens", "Amsas", "Inasburg", "Xutpolis", "Kreuhburgh", "Kifbridge", "Wotin", "Detsas", "Qront", "Haso",
-	"Galo", "Inasshire", "Adabury",
-}
-
-var pop_neara = []string{
-	"Ocean", "Mountain Range", "River", "Valley", "Stream", "Lake", "Quarry", "Cave", "Dungeon", "Ruins",
-}
-
-type Popcenter struct {
-	pop    int
-	name   string
-	places []*Place
-	neara  string   // ocean, mountain range, valley, river, ...
-}
-
-func PopcenterNew() *Popcenter {
-	rand.Seed(time.Now().Unix())
-	self := Popcenter{}
-
-	self.pop = rand.Intn(pop_max) + pop_min
-	self.name = pop_names[rand.Intn(len(pop_names))]
-	self.neara = pop_neara[rand.Intn(len(pop_neara))]
-
-	self.places = make([]*Place, int(math.Log(float64(self.pop))) * 2)
-	var wg sync.WaitGroup
-
-	wg.Add(len(self.places))
-	for i := 0; i < len(self.places); i++ {
-		go func(idx int) {
-			self.places[idx] = PlaceNew()
-			wg.Done()
-		}(i)
-	}
-
-	wg.Wait()
-	return &self
-}
-
-func (self *Popcenter) String() string {
-	builder := "{name:" + self.name + " pop:" + fmt.Sprintf("%d", self.pop) + " neara:" + self.neara + " "
-	
-	for _, p := range self.places {
-		builder += p.String()
-	}
-
-	builder += "}\n"
-
-	return builder
 }

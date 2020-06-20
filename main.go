@@ -2,14 +2,17 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
 )
 
-func main() {
-	city := PopcenterNew()
-	fmt.Printf(city.String())
+func init() {
+	rand.Seed(time.Now().Unix())
+}
 
-	/*for i := 0; i < 100; i++ {
-		fmt.Printf("%+v\n", PersonNew())
-	}*/
+func main() {
+	town := Town_new()
+	fmt.Printf("%+v\n", town)
+	town.Write()
 }
 

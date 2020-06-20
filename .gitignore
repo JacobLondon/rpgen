@@ -1,5 +1,5 @@
 .vscode
-city
-city.exe
+rpgen
+rpgen.exe
 *.swp
-
+out.txt
