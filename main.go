@@ -5,6 +5,11 @@ import (
 )
 
 func main() {
-	city := popcenter()
+	city := PopcenterNew()
 	fmt.Printf(city.String())
+
+	/*for i := 0; i < 100; i++ {
+		fmt.Printf("%+v\n", PersonNew())
+	}*/
 }
+

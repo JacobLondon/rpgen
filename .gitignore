@@ -1,2 +1,5 @@
 .vscode
 city
+city.exe
+*.swp
+

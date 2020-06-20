@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"math"
+    "math"
 	"math/rand"
 	"sync"
 	"time"
@@ -56,7 +56,7 @@ var race_defs = map[string]Race{
 			"Agosto", "Astorio", "Calabra", "Domine", "Falone", "Marivaldi", "Pisacar", "Ramondo",
 		},
 		skin_colors: []string{
-			"Light", "Dark", "Tan", "Freckled",
+			"Light", "Dark", "Tan",
 		},
 		hair_colors: []string{
 			"Black", "Brown", "Blonde", "Red", "White", "Gray", "Bald",
@@ -68,8 +68,8 @@ var race_defs = map[string]Race{
 		height_max: 7.0,
 		weight_min: 90,
 		weight_max: 300,
-		age_min: 15,
-		age_max: 90,
+		age_min: 19,
+		age_max: 70,
 	},
 	"Elf": {
 		male_names: []string{
@@ -85,9 +85,11 @@ var race_defs = map[string]Race{
 			"Theirastra", "Thia", "Vadania", "Valanthe", "Xanaphia",
 		},
 		surnames: []string{
-			"Amakiir (Gemflower)", "Amastacia (Starflower)", "Galanodel (Moonwhisper)", "Holimion (Diamonddew)",
-			"Ilphelkiir (Gemblossom)", "Liadon (Silverfrond)", "Meliamne (Oakenheel)", "Naïlo (Nightbreeze)",
-			"Siannodel (Moonbrook)", "Xiloscient (Goldpetal)",
+			"Amakiir", "Amastacia", "Galanodel", "Holimion",
+			"Ilphelkiir", "Liadon", "Meliamne", "NaNightbreeze)",
+			"Siannodel", "Xiloscient",
+			"Gemflower", "Starflower", "Moonwhisper", "Diamonddew", "Gemblossom", "Silverfrond", "Oakenheel",
+			"Nightbreeze", "Moonbrook", "Goldpetal",
 		},
 		skin_colors: []string{
 			"Light", "Dark",
@@ -102,8 +104,8 @@ var race_defs = map[string]Race{
 		height_max: 6.2,
 		weight_min: 70,
 		weight_max: 200,
-		age_min: 15,
-		age_max: 800,
+		age_min: 19,
+		age_max: 700,
 	},
 	"Orc": {
 		male_names: []string{
@@ -130,8 +132,8 @@ var race_defs = map[string]Race{
 		height_max: 8.0,
 		weight_min: 170,
 		weight_max: 300,
-		age_min: 15,
-		age_max: 90,
+		age_min: 19,
+		age_max: 70,
 	},
 	"Dwarf": {
 		male_names: []string{
@@ -164,7 +166,7 @@ var race_defs = map[string]Race{
 		height_max: 5.0,
 		weight_min: 50,
 		weight_max: 200,
-		age_min: 10,
+		age_min: 19,
 		age_max: 450,
 	},
 	"Gnome": {
@@ -195,8 +197,8 @@ var race_defs = map[string]Race{
 		height_max: 3.5,
 		weight_min: 30,
 		weight_max: 50,
-		age_min: 14,
-		age_max: 500,
+		age_min: 19,
+		age_max: 400,
 	},
 	"Halfling": {
 		male_names: []string{
@@ -226,8 +228,8 @@ var race_defs = map[string]Race{
 		height_max: 3.5,
 		weight_min: 30,
 		weight_max: 50,
-		age_min: 10,
-		age_max: 90,
+		age_min: 19,
+		age_max: 75,
 	},
 	"Tiefling": {
 		male_names: []string{
@@ -256,12 +258,12 @@ var race_defs = map[string]Race{
 		eye_colors: []string{
 			"Black", "Red", "White", "Silver", "Gold",
 		},
-		height_min: 4.0,
-		height_max: 7.0,
+		height_min: 5.0,
+		height_max: 6.5,
 		weight_min: 90,
 		weight_max: 240,
-		age_min: 15,
-		age_max: 110,
+		age_min: 19,
+		age_max: 75,
 	},
 }
 
@@ -287,27 +289,52 @@ var person_goals = []string{
 	"Help the poor",
 	"Study lore",
 	"Build a temple to my god",
+	"Survive",
+	"Seek a position of power",
+	"Explore ruins",
 }
 
 var person_clothings_male = []string{
 	"Fabric Shirt", "Leather Shirt", "Sleaveless Shirt", "Worn Robe", "Fancy Robe", "Silk Robe",
-	"Smock", "Tunic", "Caped Robe", "Chestplate",
+	"Smock", "Tunic", "Caped Robe", "Chestplate", "Trenchcoat", "Studded Leather Shirt", "Intricate Robes",
+	"Religious Armor", "Religious Robes",
 }
 
 var person_clothings_female = []string{
+	"Fabric Shirt", "Leather Shirt", "Sleaveless Shirt", "Worn Robe", "Fancy Robe", "Silk Robe",
+	"Smock", "Tunic", "Caped Robe", "Chestplate", "Trenchcoat", "Studded Leather Shirt", "Intricate Robes",
+	"Religious Armor", "Religious Robes",
 	"Dress", "Colorful Dress", "Worn Dress", "Robe", "Magical Robe", "Caped Robe", "Sleaveless Shirt",
 	"Smock", "Blouse",
 }
 
 var person_distinctions = []string{
 	"Grim Smile", "Calm Demeanor", "Firey Eyes", "Lined Forehead", "Smile Marks",
-	"Scar across eye", "Missing an eye", "Muscley", "Missing a tooth",
+	"Scar across eye", "Missing an eye", "Muscley", "Missing a tooth", "Long hair",
+	"Lazy Eye", "Scar across nose", "Missing piece of ear", "Walk with limp",
+	"Always wears armor", "Perpetually drunk", "Walks briskly", "Mumbles to self",
+	"Paces back and forth", "Walks gracefully", "Great Smile", "Sparkling eyes",
+	"Skips when walking", "Talks to self", "Speaks in third person", "Wears Glasses",
+	"Wears a beret", "Wears a scarf", "Wears a top hat", "Carries a purse",
+	"Carries a backpack", "Travels with a bird", "Travels with a dog", "Travels with a cat",
+	"Travels with an owl", "Travels with a bat", "Always carries sword", "Carries longsword",
+	"Carries greatsword", "Carries shortsword", "Carries longbow", "Carries shortbow",
+	"Carries crossbow", "Carries hammer", "Carries axe", "Carries a quiver", "Walks with a cane",
+	"Sharp chin", "Oval face", "Uses wheelchair", "Carrier hiking gear", "Carries fishing gear",
+	"Has arm tattoo", "Has neck tattoo", "Has chest tattoo",
 }
 
 var person_feels = []string{
 	"Angry", "Stubborn", "Quiet", "Crotchety", "Calm", "Focused", "Intelligent", "Dumb",
 	"Asshole", "Fake", "Truthful", "Helpful", "Kind", "Thankful", "Encouraging", "Naive",
-	"Purposeful", "Meaningless",
+	"Purposeful", "Meaningless", "Haggard", "Non-conformist", "Conformist", "Boring",
+	"Entrepenurial", "Handy", "Happy", "Joyful", "Healthy", "Fat", "Skinny",
+	"Happy-go-lucky", "Hard-ass", "Hard-working", "Sickly", "Harsh", "Hesitating",
+	"Disgruntled", "Jaded", "Hasty", "Slow", "Fast", "Clumsy", "Graceful", "Hip",
+	"Horrible", "Annoying", "Grumpy", "Depressed", "Immaculate", "Sarcastic", "Jovial",
+	"Lax", "Merry", "Middle-aged", "Morbid", "Ne'er-do-well", "Obese", "Obtuse", "Acute",
+	"Offensive", "Bold", "Promiscuous", "Pervasive", "Pious", "Sharp", "Resourceful",
+	"Rude", "Witty", "Shy", 
 }
 
 type Person struct {
@@ -328,10 +355,10 @@ type Person struct {
 }
 
 func (self *Person) String() string {
-	return fmt.Sprintf("%+v ", *self)
+	return fmt.Sprintf("%+v\n", *self)
 }
 
-func person() *Person {
+func PersonNew() *Person {
 	self := Person{}
 
 	self.race = race_names[rand.Intn(len(race_names))]
@@ -347,19 +374,22 @@ func person() *Person {
 	self.eye_color = race.eye_colors[rand.Intn(len(race.eye_colors))]
 	self.distinction = person_distinctions[rand.Intn(len(person_distinctions))]
 	self.feel = person_feels[rand.Intn(len(person_feels))]
-	self.height = float32(rand.NormFloat64()) * float32(race.height_max - race.height_min)
-	self.height = float32(math.Abs(float64(self.height))) + race.height_min
+
+	self.height = rand.Float32() * float32(race.height_max - race.height_min) + race.height_min
+	height_norm := (self.height - race.height_min) / race.height_max
 	self.weight = rand.Int() % (race.weight_max - race.weight_min) + race.weight_min
+    self.weight += int(float32(self.weight) * height_norm)
+
 	self.goal = person_goals[rand.Intn(len(person_goals))]
 	self.gold = rand.Intn(500)
 
 	// male
 	if gender == 0 {
 		self.name = race.male_names[rand.Intn(len(race.male_names))] + " " + race.surnames[rand.Intn(len(race.surnames))]
-		self.gender = "Male"
 		self.clothing = person_clothings_male[rand.Intn(len(person_clothings_male))]
+		self.gender = "Male"
 	// female
-	} else {
+    } else {
 		self.name = race.female_names[rand.Intn(len(race.female_names))] + " " + race.surnames[rand.Intn(len(race.surnames))]
 		self.clothing = person_clothings_female[rand.Intn(len(person_clothings_female))]
 		self.gender = "Female"
@@ -369,18 +399,28 @@ func person() *Person {
 }
 
 var place_kinds = []string{
-	"Tavern", "Inn", "General Store", "Fletchery", "Butcher", "Bath House", "Open-air Market",
-	"Temple", "Fishing Goods", "Mail Stop", "Owlry", "Falconer", "Herb Shop",
+	"Tavern", "Inn", "General Store", "Fletchery Store", "Butcher Shop", "Bath House", "Open-air Market",
+	"Temple", "Fishing Goods", "Post Office", "Owlry", "Falconer", "Herb Shop", "Arboretum", "Petting Zoo",
+    "Botanical Garden", "Cured Meats Store", "Guildhall", "Stable", "Docks", "Apothecary", "Blacksmith",
+    "Leatherworks", "Book Store", "Magick Shoppe", "Jewelery", "Candlestick Maker", "Bakery", "Jail",
+    "Oddities", "Cobbler", "Pier", "Cartographers Guildhall", "Softies", "Fortuitous Froths", "Trinkets",
+    "Rock Candy", "Fur-ever Homes", "Mountaineers Bandoleer", "Bloodletting Shop", "Morgue", "Taxidermists",
+    "Tinkerer's Construct", "Hatter", "Theater", "Restaurant", "Curiosities", "Stone Carving", "Statuary",
+    "Menders", "Whispers and Secrets", "Library", "Spirits", "Liquor", "Hunting Goods", "Habidashery",
+    "Mercenary Guild", "Weapons Shop", "Architect", "City Hall", "Engineers", "Textiles", "Armory",
 }
 
 var place_decorations = []string{
-	"Hanging Fishing Tools", "Paintings", "Rotted Wood", "Cobwebs", "Hanging Ribbons",
-	"Live Music", "Plants", "Bookshelves",
+	"Hanging Fishing Tools", "Paintings", "Rotted Wood", "Cobwebs", "Hanging Ribbons", "Live Music",
+	"Plants", "Bookshelves", "Rug", "Candles", "Chandelier", "Hat Stand", "Coat Rack", "Lanterns",
+    "Drapes", "Flowers",
 }
 
 var place_feels = []string{
 	"Warm", "Smelly", "Damp", "Cold", "Homey", "Distrusting", "Quiet", "Awkward", "Busy",
-	"Dark", "Well-lit", "Welcoming", "Clean", "Dirty",
+	"Dark", "Well-lit", "Welcoming", "Clean", "Dirty", "Dingy", "Bright", "Cramped", "Spacious",
+    "Eerie", "Fabulous", "Fair", "Fancy", "Natural", "Unnatural", "Empty", "Hot", "Kooky",
+    "Poor", "Wealthy", "Luxurious", "Bare-bones", "Antique", "Rowdy", "Ugly", "Unlit", "Vivid",
 }
 
 var size_min = 1
@@ -407,7 +447,7 @@ func (self *Place) String() string {
 	return builder
 }
 
-func place() *Place {
+func PlaceNew() *Place {
 	self := Place{}
 
 	self.size = rand.Intn(size_max) + size_min
@@ -421,7 +461,7 @@ func place() *Place {
 	wg.Add(self.size)
 	for i := 0; i < self.size; i++ {
 		go func(idx int) {
-			self.people[idx] = person()
+			self.people[idx] = PersonNew()
 			wg.Done()
 		}(i)
 	}
@@ -456,7 +496,7 @@ type Popcenter struct {
 	neara  string   // ocean, mountain range, valley, river, ...
 }
 
-func popcenter() *Popcenter {
+func PopcenterNew() *Popcenter {
 	rand.Seed(time.Now().Unix())
 	self := Popcenter{}
 
@@ -464,13 +504,13 @@ func popcenter() *Popcenter {
 	self.name = pop_names[rand.Intn(len(pop_names))]
 	self.neara = pop_neara[rand.Intn(len(pop_neara))]
 
-	self.places = make([]*Place, int(math.Log(float64(self.pop))) * 6)
+	self.places = make([]*Place, int(math.Log(float64(self.pop))) * 2)
 	var wg sync.WaitGroup
 
 	wg.Add(len(self.places))
 	for i := 0; i < len(self.places); i++ {
 		go func(idx int) {
-			self.places[idx] = place()
+			self.places[idx] = PlaceNew()
 			wg.Done()
 		}(i)
 	}
