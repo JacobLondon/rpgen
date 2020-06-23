@@ -20,11 +20,169 @@ type Race struct {
 	age_max      int
 }
 
-var race_names = []string{
+var race_names = []string {
 	"Human", "Elf", "Orc", "Dwarf", "Gnome", "Halfling", "Tiefling",
 }
+/*var race_names = []string {
+    "English Human", "Irish Elf", "Scottish Dwarf",
+}*/
 
 var race_defs = map[string]Race {
+    "English Human": {
+		male_names: []string{
+            "Tawnie", "Holden", "Edison", "Winthorpe", "Lyndon", "Sawyer",
+            "Melba", "Haywood", "Alfred", "Alden", "Linton", "Huxley", "Winston",
+            "Knox", "Sutton", "Edvin", "Harlan", "Oswald", "Milton", "Cyneric",
+            "Wyot", "Auden", "Edric", "Hedley", "Tatum", "Fulton", "Egbert",
+            "Woodrow", "Osbert", "Egbert", "Aiken", "Graeme", "Landyn", "Hale",
+            "Riley", "Edward", "Elton", "Hereward", "Becket", "Edmund", "Wulfnod",
+            "Eardwulf", "Dane", "Cynebald", "Gibson", "Aesc", "Swithin", "Harold",
+		},
+		female_names: []string {
+            "Kelsey", "Kaelyn", "Ash", "Tinble", "Kimberley", "Edeva", "Gerarda",
+            "Beverly", "Odella", "Velma", "Brynlee", "Brooke", "Rue", "Lena", "Lana",
+            "Willow", "Bathilde", "Raylee", "Leanne", "Levina", "Godiva", "Deana",
+            "Eden", "Ainslee", "Dell", "Audrey", "Ealdgyo", "Willa", "Eoforhild",
+            "Trilby", "Zanna", "Marjorie", "Edgarda", "Holly", "Marigold", "Iria",
+            "Lindley", "Louella", "Haralda", "Piper", "Flyta", "Imogene", "Dale",
+            "Earna", "Delwyn", "Zelene", "Paige", "Kelcie", "Daisy", "Chancey",
+		},
+		surnames: []string {
+            "Wilmere", "Lintone", "Hardene", "Thorntone", "Glasse", "Waller", "Hayes",
+            "Bardsleye", "Easome", "Underwoode", "Burkee", "Blakee", "Kimballe",
+            "Froste", "Hawkinge", "Tashe", "Hathawaye", "Buckley", "Hambletone",
+            "Weaver", "Woodcocke", "Presleye", "Boatwrighte", "Alvine", "Cookee",
+            "Weekese", "Harrise", "Warwicke", "Aytone", "Whitee", "Everlye", "Hanleye",
+            "Harrelsone", "Uggerii", "Beasleye", "Brewstere", "Greye", "Alfredssons",
+            "Fenne", "Lyndone", "Truemane", "Blackbournee", "Alveye", "Caldwelle",
+		},
+		skin_colors: []string {
+			"Light", "Pale", "Tan",
+		},
+		hair_colors: []string {
+			"Black", "Brown", "Blonde", "Red", "White", "Gray", "Bald",
+		},
+		eye_colors: []string {
+			"Brown", "Blue", "Green", "Hazel", "Dark", "Gray",
+		},
+		height_min: 5.0,
+		height_max: 6.5,
+		weight_min: 120,
+		weight_max: 200,
+		age_min: 20,
+		age_max: 70,
+    },
+    "Irish Elf": {
+		male_names: []string {
+            "Abban", "Ailill", "Ailbe", "Ainmire", "Amhlaoibh", "Anlon", "Aodh",
+            "Aodghan", "Aongus", "Banan", "Bradan", "Brandan", "Brin", "Cairbre",
+            "Kenneth", "Kevin", "Carroll", "Kane", "Killian", "Kieran", "Colm",
+            "Colman", "Conan", "Conn", "Cormac", "Christopher", "Dara", "Dermot",
+            "Donald", "Edmund", "Heber", "Enda", "Owen", "Fergal", "Fergus", "Barry",
+            "Finbar", "Finn", "Garvan", "Garret", "Christian", "Jarlath", "Liam",
+            "Lawrence", "Loo", "Mannix", "Manus", "Mel", "Oran", "Patrick", "Peter",
+            "Ryan", "Ronan", "Ross", "Seamus", "James", "Sean", "Tiernan", "Thomas",
+            "Ultan",
+		},
+		female_names: []string {
+            "Afric", "April", "Aideen", "Aileen", "Ashling", "Alannah", "Alma", "Eefa",
+            "Betha", "Bridget", "Brona", "Caitlin", "Cait", "Keelin", "Keva", "Kathleen",
+            "Keera", "Kiara", "Colleen", "Datan", "Darerca", "Darina", "Dervla", "Duveesa",
+            "Ealga", "Eileen", "Elizabeth", "Emer", "Enya", "Helen", "Erin", "Etain",
+            "Fiona", "Grania", "Agnes", "Iona", "Isleen", "Macha", "Maeve", "Mary", "Maura",
+            "Moira", "Melissa", "Mona", "Nessa", "Neve", "Noelle", "Nora", "Una", "Orla",
+            "Rianne", "Riona", "Rosaleen", "Sive", "Saoirse", "Shannon", "Shona", "Sheena",
+            "Shivaun", "Joan", "Sarah",
+		},
+		surnames: []string {
+            "Murphy", "Kelly", "O'Sullivan", "Walsh", "Smith", "O'Brien", "Byrne", "Ryan",
+            "O'Connor", "O'Niell", "O'Reilly", "Doyle", "McCarthy", "Gallagher", "O'Doherty",
+            "Kennedy", "Lynch", "Murray", "Quinn", "Moore", "McLoughlin", "O'Carroll",
+            "Connolly", "Daly", "O'Connell", "Wilson", "Dunne", "Brennan", "Burke", "Collins",
+            "Campbell", "Clarke", "Johnston", "Hughes", "O'Farrell", "Fitzgerald", "Brown",
+            "Martin", "Maguire", "Nolan", "Flynn", "Thompson", "O'Callaghan", "O'Donnell",
+            "Duffy", "O'Mahony", "Boyle", "Healy", "O'Shea", "White", "Sweeney", "Hayes",
+            "Kavanagh", "Power", "McGrath", "Moran", "Brady", "Stewart", "Casey", "Foley",
+            "Fitzpatrick", "O'Leary", "McDonnell", "MacMahon", "Donnelly", "Regan", "Donovan",
+            "Burns", "Flanagan", "Mullan", "Barry", "Kane", "Robinson", "Cunningham", "Griffin",
+            "Kenny", "Sheehan", "Ward", "Whelan", "LYons", "Reid", "Graham", "Higgins",
+            "Cullen", "O'Keeffe", "Magee", "MacNamara", "MacDonald", "MacDermott", "Molony",
+            "O'Rourke", "Buckley", "O'Dwyer",
+		},
+		skin_colors: []string {
+			"Light", "Pale", "Tan",
+		},
+		hair_colors: []string {
+			"Black", "Silver", "Brown", "Gold", "Blonde", "White", "Gray", "Bald",
+		},
+		eye_colors: []string {
+			"Brown", "Light", "Green", "Blue", "Yellow", "Hazel", "Gray", "Gold", "Silver",
+		},
+		height_min: 5.3,
+		height_max: 6.2,
+		weight_min: 110,
+		weight_max: 180,
+		age_min: 20,
+		age_max: 700,
+    },
+    "Scottish Dwarf": {
+		male_names: []string{
+            "Adie", "Addie", "Adam", "Albert", "Alan", "Alec", "Alex", "Alpin",
+            "Andrew", "Alastair", "Aulay", "Angie", "Hugh", "Aidan", "Angus",
+            "Harold", "Arthur", "Aaron", "Walter", "Benedict", "Brian", "Benjamin",
+            "Colin", "Kevin", "Charles", "Kieran", "Clement", "Kenneth", "Constantine",
+            "Coll", "Columba", "Connal", "Cormac", "Christopher", "Christian", "David",
+            "George", "Dermid", "Duff", "Danny", "Douglas", "Hector", "Archie", "Ellar",
+            "Edmund", "Ewan", "John", "Jonathan", "Joseph", "Fillan", "Farquhar",
+            "Philip", "Fingal", "Franklin", "Gilbert", "Gordon", "Godfrey", "Gregory",
+            "Grant", "Archibald", "Jack", "Jonah", "Lawrence", "Lewis", "Luke", "Myles",
+            "Malcolm", "Miles", "Mark", "Martin", "Michael", "Morgan", "Magnus",
+            "Oliver", "Nicholas", "Neil", "Francis", "Paul", "Peter", "Rob",
+            "Derrick", "Roderick", "Rory", "Zachary", "Samuel", "Seth", "Simon",
+            "Thomas", "Norman", "Willie", "Eugene",
+		},
+		female_names: []string{
+            "Alice", "Amelia", "Emily", "Angelica", "Annabella", "Ann", "Anne", "Annie",
+            "Ava", "Barbara", "Bessy", "Becky", "Beatrice", "Victoria", "Bridget",
+            "Christine", "Christina", "Catherine", "Catrina", "Kenna", "Kate", "Katie",
+            "Dorcas", "Dorothy", "Dolly", "Doreen", "Elizabeth", "Ailie", "Ellen", "Helen",
+            "Eve", "Eva", "Evelyn", "Fiona", "Flora", "Florence", "Frances", "Grace",
+            "Isabel", "Isabella", "Lexie", "Lily", "Lucretia", "Lisa", "Maggie",
+            "Marjory", "Martha", "Mildred", "Mabel", "Mary", "Marion", "Olivia", "Rachel",
+            "Ruth", "Jessie", "Joan", "Shona", "Janet", "Susan", "Susanna", "Claire",
+            "Clara", "Sarah", "Sorche", "Cecilia", "Julia", "Jane", "Jean", "Jenny", "Una",
+		},
+		surnames: []string{
+            "Abercrombie", "Smith", "Brown", "Wilson", "Robertson", "Thomson", "Campbell",
+            "Stewart", "Anderson", "Scott", "Murray", "MacDonald", "Reid", "Taylor",
+            "Clark", "Ross", "Young", "Mitchell", "Watson", "Paterson", "Morrison",
+            "Murphy", "Kelly", "Walsh", "Byrne", "Ryan", "Doyle", "McCarthy", "Gallagher",
+            "Kennedy", "Lynch", "Murray", "Quinn", "Moore", "McLoughlin", "Connolly",
+            "Daly", "Wilson", "Dunne", "Brennan", "Burke", "Collins", "Campbell", "Clarke",
+            "Johnston", "Hughes", "Fitzgerald", "Brown", "Martin", "Maguire", "Nolan",
+            "Flynn", "Thompson", "Duffy", "Boyle", "Healy", "White", "Sweeney", "Hayes",
+            "Kavanagh", "Power", "McGrath", "Moran", "Brady", "Stewart", "Casey", "Foley",
+            "McDonnell", "MacMahon", "Donnelly", "Regan", "Donovan", "Burns", "Flanagan",
+            "Mullan", "Barry", "Kane", "Robinson", "Cunningham", "Griffin", "Kenny",
+            "Sheehan", "Ward", "Whelan", "LYons", "Reid", "Graham", "Higgins", "Cullen",
+            "Magee", "MacNamara", "MacDonald", "MacDermott", "Molony", "Buckley",
+		},
+		skin_colors: []string{
+			"Light", "Pale", "Tan",
+		},
+		hair_colors: []string{
+			"Red", "Brown", "Black", "Bald",
+		},
+		eye_colors: []string{
+			"Golden", "Hazel", "Brown", "Green", "Gray",
+		},
+		height_min: 3.0,
+		height_max: 5.0,
+		weight_min: 50,
+		weight_max: 200,
+		age_min: 20,
+		age_max: 450,
+    },
 	"Human": {
 		male_names: []string{
 			"Aseir", "Bardeid", "Haseid", "Khemed", "Mehmen", "Sudeiman", "Zasheir",
@@ -312,23 +470,27 @@ var person_goals = []string{
 	"Learn to fight",
 	"Open a great zoo",
 	"To create a masterpiece painting",
+    "To build houses",
+    "To trade between distant cities",
 }
 
 var person_clothing_adjectives = []string {
 	"Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Indigo", "Violet",
 	"Emerald", "Jade", "Beige", "Black", "Gray", "Maroon", "Colorful",
 	"Fancy", "Worn", "Sleaveless", "Turquoise", "Cyan", "Sapphire", "Caped",
-	"Silk", "Intricate", "Hooded",
+	"Silk", "Intricate", "Hooded", "Mantled",
 }
 
 var person_clothings_male = []string {
-	"Shirt", "Robe", "Smock", "Tunic", "Chestplate", "Trenchcoat", "Religious Armor", "Religious Robes",
-	"Artisan's Clothing", "Cleric's vestments", "Cold weather outfit",
-	"Cloak", "Cape",
+	"Shirt", "Robe", "Smock", "Tunic", "Chestplate", "Trenchcoat", "Religious Armor",
+	"Artisan's Clothing", "Cleric's vestments", "Cold weather outfit", "Religious Robes",
+	"Cloak", "Cape", "Coat", "Fur-lined Cloak", "Woolen Cloak", "Jacket", "Woolen Tunic",
+    "Collared Shirt", "Shirt with waistcoat", "Shirt with cummerbund",
 }
 
 var person_clothings_female = []string {
-	"Dress", "Laced Dress", "Blouse",
+	"Dress", "Laced Dress", "Blouse", "Bodice", "Dress with flared sleeves", "Dress with petticoat",
+    "Polonaise", "Witzchoura", "Overgarment", "Gown", "Long skirt", "Surcoat", "Bliaut", "Cotehardie",
 }
 
 var person_distinctions = []string {

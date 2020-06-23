@@ -1,6 +1,6 @@
 GO=go
 
-TARGET=rpgen
+TARGET=rpgen.exe
 
 FILES = \
 	people.go \
