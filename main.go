@@ -15,4 +15,3 @@ func main() {
 	fmt.Printf("%+v\n", town)
 	town.Write()
 }
-
