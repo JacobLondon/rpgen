@@ -38,10 +38,22 @@ for line in sys.stdin:
         continue
 
     if re.match(r'[0-9]+', args[0]):
+        if len(args) > 1 and args[1] == '*':
+            try:
+                times = int(args[0])
+                args = args[2:]
+                if len(args) % 2 != 0:
+                    args.append(0)
+                args *= times
+            except ValueError as e:
+                print(e)
+                continue
+
         try:
             getlist = lambda: list(roll for roll in roll_many(iter(args)))
             manylist = list(getlist() for _ in range(10))
             print(manylist)
+            print([sum(sub) for sub in manylist])
         except ValueError as e:
             print(e)
             continue
