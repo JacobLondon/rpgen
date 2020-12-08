@@ -2,6 +2,7 @@ import random
 import signal
 import subprocess
 import sys
+import time
 import re
 import os
 
@@ -10,6 +11,7 @@ def handle(sig, frame):
     global cancel
     cancel = True
 signal.signal(signal.SIGINT, handle)
+random.seed(time.time())
 
 def roll_one(n: int) -> int:
     return random.randint(1, n)
@@ -76,6 +78,9 @@ for line in sys.stdin:
 
     elif args[0] == 'c' or args[0] == 'clear':
         print(chr(27) + "[2J")
+
+    elif args[0] == 'exit':
+        exit(0)
 
     cancel = False
     print(">> ", end='', flush=True)
