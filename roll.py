@@ -11,10 +11,14 @@ def handle(sig, frame):
     global cancel
     cancel = True
 signal.signal(signal.SIGINT, handle)
-random.seed(time.time())
+random.seed(os.urandom(128))
+
+def randint(a, b, seed_bytes=128):
+    random.seed(os.urandom(seed_bytes))
+    return random.randint(a,b)
 
 def roll_one(n: int) -> int:
-    return random.randint(1, n)
+    return randint(1, n)
 
 def roll_add(n: int, v: int) -> int:
     return roll_one(n) + v
@@ -61,6 +65,7 @@ for line in sys.stdin:
             continue
 
     elif args[0] == 'char':
+        random.seed(os.urandom(128))
         try:
             with open('out.txt', 'r') as fp:
                 lines = fp.readlines()
