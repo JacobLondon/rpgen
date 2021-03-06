@@ -21,18 +21,31 @@ class TextWrap:
 class _():
     def __init__(self):
         self.dict_filename = "dictionary.json"
+        self.read()
+
+    def read(self):
         try:
             with open(self.dict_filename, "r") as dictionary:
                 self.dictionary = json.load(dictionary)
         except:
+            print(f"Warning: Could not parse {self.dict_filename}")
             self.dictionary = {}
+
+    def write(self):
+        try:
+            with open(self.dict_filename, "w") as dictionary:
+                json.dump(self.dictionary, dictionary, indent=4, sort_keys=True)
+        except Exception as e:
+            print(f"Warning: Could not write {self.dict_filename}: {e}")
 
     def dorepl(self):
         while True:
             text = input("> ")
-            if text in ("exit", "quit"):
+            if text in ("/exit", "/quit"):
                 exit(0)
-            self.process_text(self.split_text(text))
+            translation = "".join(self.process_text(self.split_text(text)))
+            print(translation)
+            self.write()
 
     def dofile(self, filename: str):
         try:
@@ -41,7 +54,9 @@ class _():
             print(e)
             exit(1)
 
-        self.process_text(self.split_text(f.read()))
+        translation = "".join(self.process_text(self.split_text(text)))
+        print(translation)
+        self.write()
         f.close()
 
     def split_text(self, english_text: str) -> List[TextWrap]:
@@ -70,8 +85,27 @@ class _():
                 subprocess(TYPE_OTHER)
         return processed
 
-    def process_text(self, process_text: List[TextWrap]):
-        print(process_text)
+    def add_word(self, word: str) -> str:
+        translation = input(f"'{word}' :: ")
+        if translation in self.dictionary.keys():
+            self.dictionary[translation].append(word)
+        else:
+            self.dictionary[translation] = [word]
+        return translation
+
+    def process_text(self, process_text: List[TextWrap]) -> List[str]:
+        def replace_word(word: TextWrap) -> str:
+            if word.type is TYPE_WORD:
+                return self.translate_word(word.text)
+            return word.text
+
+        return list(map(replace_word, process_text))
+
+    def translate_word(self, word: str) -> str:
+        for foreign, common_list in self.dictionary.items():
+            if word in common_list:
+                return foreign
+        return self.add_word(word)
 
 if __name__ == '__main__':
     _ = _()
