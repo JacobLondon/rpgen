@@ -15,7 +15,10 @@ python3 roll.py
 # generate town / character list (Golang required)
 > gen
 
-# parse generated character list for a match. Space seperated queries, Ctrl+C to stop searching. Queries are done per-line and is case-sensitive. You can read out.txt after it is generated to read the generated town to search manually.
+# parse generated character list for a match. Space seperated queries,
+# Ctrl+C to stop searching. Queries are done per-line and is case-sensitive.
+# You can read out.txt after it is generated to read the generated town
+# to search manually.
 > char Human
 > char Elf Male
 > char Orc Female
