@@ -84,6 +84,19 @@ for line in sys.stdin:
     elif args[0] == 'c' or args[0] == 'clear':
         print(chr(27) + "[2J")
 
+    # roll 'nrolls'd'dienum' ie. 8d6 -> 'r 8 6'
+    elif args[0] == 'r' or args[0] == 'roll':
+        random.seed(os.urandom(128))
+        try:
+            nrolls = int(args[1])
+            dienum = int(args[2])
+            accumulate = 0
+            for n in range(nrolls):
+                accumulate += roll_one(dienum)
+            print(accumulate)
+        except:
+            print("?")
+
     elif args[0] == 'exit':
         exit(0)
 
